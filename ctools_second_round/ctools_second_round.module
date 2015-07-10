@@ -1,0 +1,26 @@
+<?php
+/**
+ * Implements hook_menu
+ */
+function ctools_second_round_menu() {
+  $items = array();
+
+  $items["admin/settings/ctools_second_round"] = array(
+    'title' => 'CTools plugin example',
+    'description' => t("Demonstration code, advanced help, and a demo panel to show how to build ctools plugins."),
+    'page callback' => 'ctools_second_round_explanation_page',
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function ctools_second_round_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools' && !empty($plugin)) {
+    return "plugins/$plugin";
+  }
+}
