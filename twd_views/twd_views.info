@@ -1,0 +1,9 @@
+name = TWD Views Example Module
+description = Work with Views API
+core = 7.x
+package = Custom
+files[] = twd_views.module
+
+;Views Includes
+files[] = twd_views.views.inc
+files[] = twd_views_handler_filter_field_count.inc
