@@ -1,0 +1,77 @@
+<?php
+/**
+ * Implement 3 hooks.
+ * 1. Описываем новый форматтер к какому типу поля он принадлежит, определяем заголовок и описаниею
+ * 2. Определяем поля которые мы увидим при настройке форматтера поля в manage display.
+ * 3. Определяем template для форматтера.
+ */
+
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function formatter_field_formatter_info() {
+  $info = array(
+    'website' => array(
+      'label' => t('Title as link, URL as plain text'),
+      'field types' => array('link_field'),
+      'description' => t('Displays Title as a link and URL as plain text.'),
+    ),
+    'copyright' => array(
+      'label' => t('Copyright link'),
+      'field types' => array('link_field'),
+      'description' => t('This text become as copyright on your page.'),
+    )
+  );
+  return $info;
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function formatter_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+  switch ($display['type']) {
+    case 'website':
+      foreach ($items as $delta => $item) {
+        $element[$delta] = array(
+          '#theme' => 'formatter_website',
+          '#title' => $entity->field_website['und'][0]['title'],
+          '#url' => $entity->field_website['und'][0]['url'],
+        );
+      }
+      break;
+    case 'copyright':
+      foreach ($items as $delta => $item) {
+        $element[$delta] = array(
+          '#theme' => 'formatter_copyright',
+          '#title' => $entity->field_copyright['und'][0]['title'],
+          '#url' => $entity->field_copyright['und'][0]['url'],
+        );
+      }
+      break;
+  }
+  return $element;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function formatter_theme() {
+  return array(
+    'formatter_website' => array(
+      'template' => 'formatter_website',
+      'variables' => array(
+        'title' => NULL,
+        'url' => NULL,
+      ),
+    ),
+    'formatter_copyright' => array(
+      'template' => 'formatter_copyright',
+      'variables' => array(
+        'title' => NULL,
+        'url' => NULL,
+      ),
+    ),
+  );
+}

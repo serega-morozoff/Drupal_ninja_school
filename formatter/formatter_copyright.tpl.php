@@ -1,0 +1,1 @@
+<a href="<?php print $url; ?>"> © <?php print $title; ?> - all rights reserved.</a>
