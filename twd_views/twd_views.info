@@ -7,3 +7,4 @@ files[] = twd_views.module
 ;Views Includes
 files[] = twd_views.views.inc
 files[] = twd_views_handler_filter_field_count.inc
+files[] = twd_views_plugin_custom_style.inc
